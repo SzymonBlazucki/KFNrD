@@ -1,0 +1,94 @@
+---
+title: "draft"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, results='asis', echo=FALSE, message=FALSE}
+cat(
+  "<script src='https://cdn.jsdelivr.net/npm/vue'></script>",
+  "<script src='https://unpkg.com/quantum-tensors'></script>",
+  "<script src='https://unpkg.com/bra-ket-vue'></script>"
+)
+```
+
+
+Short description of the website and its content. 
+
+
+## Title
+
+subsection a)  
+
+
+<div id='op-not'></div>
+
+subsection b)
+
+<div id='op-not2'></div>
+
+subsection c)
+
+<div id='op-not3'></div>
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+const { Elements, Operator, Dimension, Cx } = QuantumTensors;
+const { ComplexLegend, MatrixViewer } = BraKetVue;
+
+const opNot = Operator.fromSparseCoordNames([
+  ['0', '0', Cx(1)],
+  ['1', '1', Cx(1)],
+], [Dimension.position(3, 'color')]);
+
+const opNott = Operator.fromSparseCoordNames([
+  ['0', '0', Cx(1)],
+  ['0', '1', Cx(1)],
+  ['0', '2', Cx(1)],
+], [Dimension.position(3, 'color')]);
+
+const opNottt = Operator.fromSparseCoordNames([
+  ['1', '1', Cx(1)],
+  ['1', '2', Cx(1)],
+], [Dimension.position(3, 'color')]);
+
+new Vue({
+  el: "#op-not",
+  template: "<matrix-viewer :operator-raw='opNot' :dark-mode='false' :show-legend='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+    	opNot
+		}
+  }
+})
+new Vue({
+  el: "#op-not2",
+  template: "<matrix-viewer :operator-raw='opNott' :dark-mode='false' :show-legend='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+    	opNott
+		}
+  }
+})
+
+new Vue({
+  el: "#op-not3",
+  template: "<matrix-viewer :operator-raw='opNottt' :dark-mode='false' :show-legend='false' />",
+  components: {
+    MatrixViewer
+  },
+  data() {
+  	return {
+    	opNottt
+		}
+  }
+})
+```
