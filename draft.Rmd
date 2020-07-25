@@ -1,5 +1,5 @@
 ---
-title: "draft"
+title: "My first project"
 output: html_document
 ---
 
@@ -15,24 +15,54 @@ cat(
 )
 ```
 
+The purpose of that project is to visualize operations on three coloured [<span id="R"> R </span>, <span id="G"> G </span>, <span id="B"> B </span>] light beam. We'll start with the simple ones like filtration or fluorescence and then move on to the more advanced ones.
 
-Short description of the website and its content. 
+### Filtration
+
+So at the beginning let's start with the simplest one - filtration. If we consider our light beam as a 3-dimensional vector where each dimension represents one component we can describe every operation as multiplying our vector by a matrix. For a blue light filter we have: 
+
+$$ \begin{bmatrix}
+R\\
+G\\
+B
+\end{bmatrix} \begin{bmatrix}
+1 & 0 & 0\\
+0 & 1 & 0\\
+0 & 0 & 0
+\end{bmatrix} = \begin{bmatrix} R\\ G\\0 \end{bmatrix}
+$$
+It's completely ok to write it like this, but that's not intuitive for everyone. Especially if you are not familiar with linear algebra. To make it easier and more straightforward let's draw a matrix not as a set of 0 and 1 but as a table with circles inside it. Colour of each circle represents the component which it affects. Take a look on the following examples 
+
+$$ \begin{bmatrix}
+R\\
+G\\
+B
+\end{bmatrix}\rightarrow \begin{bmatrix} R\\ G\\0 \end{bmatrix}
+$$
+
+<div id='op-filtr'></div>
+
+<div id='ketview-filtr'></div>
+
+###Fluorescence
+$$ \begin{bmatrix}
+R\\
+G\\
+B
+\end{bmatrix} \rightarrow \begin{bmatrix} R+G+B\\ 0\\0 \end{bmatrix}
+$$
+<div id='op-fluR'></div>
+
+###Another type of fluorescence
+$$ \begin{bmatrix}
+R\\
+G\\
+B
+\end{bmatrix} \rightarrow \begin{bmatrix} 0\\ G+B\\0 \end{bmatrix}
+$$
+<div id='op-fluGkillR'></div>
 
 
-## Title
-
-subsection a)  
-
-
-<div id='op-not'></div>
-
-subsection b)
-
-<div id='op-not2'></div>
-
-subsection c)
-
-<div id='op-not3'></div>
 
 ```{js, results='asis', echo=FALSE, message=FALSE}
 const { Elements, Operator, Dimension, Cx } = QuantumTensors;
@@ -55,7 +85,7 @@ const opNottt = Operator.fromSparseCoordNames([
 ], [Dimension.position(3, 'color')]);
 
 new Vue({
-  el: "#op-not",
+  el: "#op-filtr",
   template: "<matrix-viewer :operator-raw='opNot' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
@@ -67,7 +97,7 @@ new Vue({
   }
 })
 new Vue({
-  el: "#op-not2",
+  el: "#op-fluR",
   template: "<matrix-viewer :operator-raw='opNott' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
@@ -80,7 +110,7 @@ new Vue({
 })
 
 new Vue({
-  el: "#op-not3",
+  el: "#op-fluGkillR",
   template: "<matrix-viewer :operator-raw='opNottt' :dark-mode='false' :show-legend='false' />",
   components: {
     MatrixViewer
@@ -91,4 +121,43 @@ new Vue({
 		}
   }
 })
+```
+
+```{js, results='asis', echo=FALSE, message=FALSE}
+const { Elements, Vector, Operator, Dimension, Cx } = QuantumTensors;
+const { ComplexLegend, MatrixViewer, KetWiever } = BraKetVue;
+
+const singlet = Vector.fromSparseCoordNames(
+  [["ud", Cx(1/3)], ["du", Cx(1/3)]],
+  [Dimension.spin(), Dimension.spin()]
+);
+
+new Vue({
+  el: "#ketview-filtr",
+  template: "<ket-viewer :operator-raw='ketview-filtr' :dark-mode='false' :show-legend='false' />",
+  components: {
+    KetViewer
+  },
+  data() {
+  	return {
+    	singlet
+		}
+  }
+})
+
+```
+
+
+
+
+```{css, echo=FALSE}
+#R {
+  color: red;
+}
+#G {
+  color: green;
+}
+#B {
+  color: blue;
+}
 ```
