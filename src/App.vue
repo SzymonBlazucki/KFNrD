@@ -5,11 +5,11 @@
     <!--<img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
     <h2> Filtration</h2>
-  <mat :personName="[1/3, 1/3, 1/3]" matr="matrix1"> </mat>
+  <mat :initial="[1/3, 1/3, 1/3]" matr="matrix1"> </mat>
     <h2> Fluorescence</h2>
-  <mat :personName="[1/3, 1/3, 1/3]" matr="matrix2"> </mat>
+  <mat :initial="[1/3, 1/3, 1/3]" matr="matrix2"> </mat>
     <h2> Another type of the fluorescence</h2>
-  <mat :personName="[1/3, 1/3, 1/3]" matr="matrix3"> </mat>
+  <mat :initial="[1/3, 1/3, 1/3]" matr="matrix3"> </mat>
     
   </div>
 </template>
