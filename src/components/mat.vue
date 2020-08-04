@@ -35,21 +35,6 @@ function vectorCreator (arr){
   return [["R", Cx(arr[0])], ["G", Cx(arr[1])],['B', Cx(arr[2])]] 
 }
 
-const matrix1 = [
-  ['R', 'R', Cx(1)],
-  ['G', 'G', Cx(1)],
-];
-
-const matrix2 = [
-  ['R', 'R', Cx(1)],
-  ['R', 'G', Cx(1)],
-  ['R', 'B', Cx(1)]
-];
-const matrix3 = [
-  ['G', 'G', Cx(1)],
-  ['G', 'B', Cx(1)],
-];
-
 export default  {
 
   components: {
@@ -58,21 +43,21 @@ export default  {
   },
   props: {
     initial: Array,
-    matr: String
+    matr: Array
   } ,
       
 
   data: function() {
       return{
       person: this.initial[2],
-      mata: eval(this.matr),
+      mata: this.matr,
       start: Vector.fromSparseCoordNames(
         vectorCreator(this.initial),
         [colorDim]),
       vis: Operator.fromSparseCoordNames(
-        eval(this.matr), [colorDim]),
+        this.matr, [colorDim]),
        end:  Vector.fromSparseCoordNames(
-        operation( vectorCreator(this.initial), eval(this.matr)),
+        operation( vectorCreator(this.initial), this.matr),
         [colorDim]),
   }},
 
